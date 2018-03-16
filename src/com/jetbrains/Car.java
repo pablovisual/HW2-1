@@ -25,17 +25,17 @@ public class Car
     }
     //public void setVin(String vin) { this.vin = vin; }
     public String getVin() { return this.vin; }
-    //public void setBrand(String brand) { Brand = brand; }
+    public void setBrand(String brand) { Brand = brand; }
     public String getBrand() { return this.Brand; }
-    //public void setModel(String model) { this.model = model; }
+    public void setModel(String model) { this.model = model; }
     public String getModel() { return this.model; }
-    //public void setYear(int year) { this.year = year; }
+    public void setYear(int year) { this.year = year; }
     public int getYear() { return this.year; }
-    //public void setMileage(int mileage) { this.mileage = mileage; }
+    public void setMileage(int mileage) { this.mileage = mileage; }
     public int getMileage() { return this.mileage; }
-    //public void setPrice(double price) { this.price = price; }
+    public void setPrice(double price) { this.price = price; }
     public double getPrice() { return this.price; }
-    //public void setColor(char color) { this.color = color; }
+    public void setColor(char color) { this.color = color; }
     public char getColor() { return this.color; }
     public char getIsNew() { return this.isNew; }
 

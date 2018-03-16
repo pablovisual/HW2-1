@@ -496,45 +496,56 @@ public class Menu
                         {
                             System.out.print("Please input brand: ");
                             brand = cin.nextLine();
-                            str[1] = brand;
-                            iv.cars[iv.getNumOfCars()] = new Car(str[0], str[1], str[2], num[0], num[1], decimal[0], letter[0], letter[1]);
-                            System.out.println("It's updated. Thank you.\n");
+                            iv.cars[index].setBrand(brand);
+                            System.out.println("\nIt's updated. Thank you.\n");
                             iv.displayCars();
+                            iv.cars[index] = new Car(str[0], str[1], str[2], num[0], num[1], decimal[0], letter[0], letter[1]);
+                            iv.setNumOfCars(iv.getNumOfCars());
                         }
 
                         else if(choice == 2)
                         {
                             System.out.print("Please input model: ");
                             mod = cin.nextLine();
-                            System.out.println("It's updated. Thank you.\n");
+                            iv.cars[index].setModel(mod);
+                            System.out.println("\nIt's updated. Thank you.\n");
+                            iv.displayCars();
                         }
 
                         else if(choice == 3)
                         {
                             System.out.print("Please input year: ");
                             year = cin.nextInt();
-                            System.out.println("It's updated. Thank you.\n");
+                            iv.cars[index].setYear(year);
+                            System.out.println("\nIt's updated. Thank you.\n");
+                            iv.displayCars();
                         }
 
                         else if(choice == 4)
                         {
                             System.out.print("Please input mileage: ");
                             mile = cin.nextInt();
-                            System.out.println("It's updated. Thank you.\n");
+                            iv.cars[index].setMileage(mile);
+                            System.out.println("\nIt's updated. Thank you.\n");
+                            iv.displayCars();
                         }
 
                         else if(choice == 5)
                         {
                             System.out.print("Please input price: ");
                             price = cin.nextDouble();
-                            System.out.println("It's updated. Thank you.\n");
+                            iv.cars[index].setPrice(price);
+                            System.out.println("\nIt's updated. Thank you.\n");
+                            iv.displayCars();
                         }
 
                         else if(choice == 6)
                         {
                             System.out.print("Please input color: ");
                             color = cin.next().charAt(0);
-                            System.out.println("It's updated. Thank you.\n");
+                            iv.cars[index].setColor(color);
+                            System.out.println("\nIt's updated. Thank you.\n");
+                            iv.displayCars();
                         }
                     }
 
@@ -576,15 +587,16 @@ public class Menu
                         {
                             System.out.print("Please input new password: ");
                             passw = cin.nextLine();
-
+                            cu.members[count].setPW(passw);
                             cu.displayCustomers();
+
                         }
 
                         else if(choice == 2)
                         {
                             System.out.print("Please input new first name: ");
                             fn = cin.nextLine();
-
+                            cu.members[count].setFirstName(fn);
                             cu.displayCustomers();
                         }
 
@@ -592,7 +604,7 @@ public class Menu
                         {
                             System.out.print("Please input new last name: ");
                             ln = cin.nextLine();
-
+                            cu.members[count].setLastName(ln);
                             cu.displayCustomers();
                         }
 
@@ -600,7 +612,7 @@ public class Menu
                         {
                             System.out.print("Please input new email: ");
                             email = cin.nextLine();
-
+                            cu.members[count].setEmail(email);
                             cu.displayCustomers();
                         }
                     }
