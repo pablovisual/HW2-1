@@ -414,6 +414,8 @@ public class Menu
                                 iv.cars[index].getMileage(), iv.cars[index].getPrice(), iv.cars[index].getColor(), iv.cars[index].getIsNew());
 
                         iv.setNumOfCars(iv.getNumOfCars());
+                        System.out.println("hey");
+                        System.out.println("uoi");
                     }
                 }
 
