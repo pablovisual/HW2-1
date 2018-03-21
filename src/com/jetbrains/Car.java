@@ -12,6 +12,7 @@ public class Car
     private char isNew;
     private boolean brandNew;
 
+    public Car() {}
     public Car(String V, String B, String M, int Y, int Mileage, Double P, char C, char newOrOld)
     {
         this.vin = V;
@@ -23,7 +24,7 @@ public class Car
         this.color = C;
         this.isNew = newOrOld;
     }
-    //public void setVin(String vin) { this.vin = vin; }
+    public void setVin(String vin) { this.vin = vin; }
     public String getVin() { return this.vin; }
     public void setBrand(String brand) { Brand = brand; }
     public String getBrand() { return this.Brand; }
@@ -39,19 +40,6 @@ public class Car
     public char getColor() { return this.color; }
     public char getIsNew() { return this.isNew; }
 
-    public void setBrandNew(boolean brandNew)
-    {
-        if(getIsNew() == 'Y')
-        {
-            brandNew = true;
-            this.brandNew = brandNew;
-        }
-
-        else if(getIsNew() == 'N')
-        {
-            brandNew = false;
-            this.brandNew = brandNew;
-        }
-    }
+    public void setBrandNew(boolean brandNew) { this.brandNew = brandNew;}
     public boolean isBrandNew() { return this.brandNew; }
 }

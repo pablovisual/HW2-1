@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 public class Customers
 {
-    private int numOfMembers = 0;
+    private int numOfMembers;
     Member members[];
 
     public Customers(String fileName)throws IOException
@@ -12,7 +12,7 @@ public class Customers
         //Read customers.txt and initialize Member array
         File inputFile = new File(fileName);
         Scanner cin = new Scanner(inputFile);
-        members = new Member[1000];
+        members = new Member[1_000];
         int index = 0;
 
         while (cin.hasNext())
@@ -22,6 +22,7 @@ public class Customers
             members[index] = new Member(elements[0], elements[1], elements[2], elements[3], elements[4]);
             index++;
         }
+
         numOfMembers = index;
         cin.close();
     }
@@ -34,6 +35,7 @@ public class Customers
         System.out.printf("%-15s", "FirstName");
         System.out.printf("%-14s", "LastName");
         System.out.println("Email");
+
         for(int index = 0; index < numOfMembers; index++)
         {
             System.out.printf("%-10s" ,members[index].getID());
@@ -60,7 +62,6 @@ public class Customers
             PW.print(members[index].getLastName() + "/");
             PW.println(members[index].getEmail());
         }
-
         PW.close();
     }
 

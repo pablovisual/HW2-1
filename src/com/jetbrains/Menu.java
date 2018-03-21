@@ -14,7 +14,7 @@ public class Menu
         System.out.println("3.Exit");
     }
 
-    public void signUp(Customers cu)throws IOException
+    public void signUp(Customers cu) throws IOException
     {
 
         //Customers cu = new Customers("customer.txt");
@@ -25,13 +25,13 @@ public class Menu
         String inputLN;
         String inputEMAIL;
 
-        while(true)
+        while (true)
         {
             boolean check = true;
             System.out.print("Please input user id: ");
             inputID = cin.nextLine();
 
-            for(int index = 0; index < cu.getNumOfMembers(); index++)
+            for (int index = 0; index < cu.getNumOfMembers(); index++)
             {
                 if (inputID.equals(cu.members[index].getID()))
                 {
@@ -40,7 +40,7 @@ public class Menu
                 }
             }
 
-            if(check)
+            if (check)
                 break;
         }
 
@@ -79,17 +79,17 @@ public class Menu
         cu.setNumOfMembers(cu.getNumOfMembers() + 1);
     }
 
-    public void logIn(Customers cu, Inventory iv)throws IOException
+    public void logIn(Customers cu, Inventory iv) throws IOException
     {
         boolean check = false;
-        while(!check)
+        while (!check)
         {
             System.out.print("\nPlease input your user id: ");
             String userInput = cin.nextLine();
             System.out.print("Please input password: ");
             String userPW = cin.nextLine();
 
-            for(int index = 0; index < cu.getNumOfMembers(); index++)
+            for (int index = 0; index < cu.getNumOfMembers(); index++)
             {
                 if (userInput.equals(cu.members[index].getID()) && userPW.equals(cu.members[index].getPW()) && !(userInput.equals("admin") && userPW.equals("adminpass")))
                 {
@@ -100,7 +100,7 @@ public class Menu
                     break;
                 }
 
-                else if(userInput.equals("admin") && userPW.equals("adminpass"))
+                else if (userInput.equals("admin") && userPW.equals("adminpass"))
                 {
                     System.out.println("\nWelcome back " + cu.members[index].getFirstName() + " " + cu.members[index].getLastName() + "!\n");
                     administrationAction(iv, cu);
@@ -117,9 +117,9 @@ public class Menu
         }
     }
 
-    public void inventoryMenu(Inventory iv)
+    private void inventoryMenu(Inventory iv)
     {
-        while(true)
+        while (true)
         {
             System.out.println("1. Display inventory");
             System.out.println("2. Sort all cars");
@@ -134,33 +134,100 @@ public class Menu
                 newOldMenu();
                 System.out.print("Please input your choice: ");
                 choice = cin.nextInt();
+                cin.nextLine();
+                System.out.println();
 
                 if (choice == 1)
                 {
                     //this will display the cars info that are new(symbol Y)
-                    /*for(int index = 0; index < iv.getNumOfMembers(); index++)
+                    DecimalFormat df = new DecimalFormat("#.00");
+                    System.out.printf("%-15s", "VIN");
+                    System.out.printf("%-10s", "Brand");
+                    System.out.printf("%-10s", "Model");
+                    System.out.printf("%-8s", "Year");
+                    System.out.printf("%-10s", "Mileage");
+                    System.out.printf("%-10s", "Price");
+                    System.out.printf("%-10s", "Color");
+                    System.out.println("New");
+
+                    for (int index = 0; index < iv.getNumOfCars(); index++)
                     {
-                        if(cu.members[index].)
-                    }*/
+                        if (iv.cars[index].getIsNew() == 'Y')
+                        {
+                            System.out.printf("%-15s", iv.cars[index].getVin());
+                            System.out.printf("%-10s", iv.cars[index].getBrand());
+                            System.out.printf("%-10s", iv.cars[index].getModel());
+                            System.out.printf("%-8s", iv.cars[index].getYear());
+                            System.out.printf("%-10s", iv.cars[index].getMileage());
+                            System.out.printf("%-10s", df.format(iv.cars[index].getPrice()));
+                            System.out.printf("%-10s", iv.cars[index].getColor());
+                            System.out.println(iv.cars[index].getIsNew());
+                        }
+                    }
                     System.out.println();
                 }
 
                 else if (choice == 2)
                 {
                     //this will display the cars info that are used(that has the symbol N)
-                    System.out.println("\nthere");
+                    DecimalFormat df = new DecimalFormat("#.00");
+                    System.out.printf("%-15s", "VIN");
+                    System.out.printf("%-10s", "Brand");
+                    System.out.printf("%-10s", "Model");
+                    System.out.printf("%-8s", "Year");
+                    System.out.printf("%-10s", "Mileage");
+                    System.out.printf("%-10s", "Price");
+                    System.out.printf("%-10s", "Color");
+                    System.out.println("New");
+
+                    for (int index = 0; index < iv.getNumOfCars(); index++)
+                    {
+                        if (iv.cars[index].getIsNew() == 'N')
+                        {
+                            System.out.printf("%-15s", iv.cars[index].getVin());
+                            System.out.printf("%-10s", iv.cars[index].getBrand());
+                            System.out.printf("%-10s", iv.cars[index].getModel());
+                            System.out.printf("%-8s", iv.cars[index].getYear());
+                            System.out.printf("%-10s", iv.cars[index].getMileage());
+                            System.out.printf("%-10s", df.format(iv.cars[index].getPrice()));
+                            System.out.printf("%-10s", iv.cars[index].getColor());
+                            System.out.println(iv.cars[index].getIsNew());
+                        }
+                    }
+                    System.out.println();
                 }
             }
 
-            else if(choice == 2)
+            else if (choice == 2)
             {
+                System.out.println();
                 sortCarInfoMenu();
+                System.out.println();
                 //sort all the cars;
                 System.out.print("Please input your choice: ");
                 choice = cin.nextInt();
                 cin.nextLine();
+                System.out.println();
 
-                if(choice == 1)
+                if (choice == 1)
+                    SortVIN(iv);
+
+                else if (choice == 2)
+                    SortBrand(iv);
+
+                else if (choice == 3)
+                    SortModel(iv);
+
+                else if (choice == 4)
+                    SortYear(iv);
+
+                else if (choice == 5)
+                    SortMileage(iv);
+
+                else if (choice == 6)
+                    SortPrice(iv);
+
+                /*else if(choice == 7)
                 {
                     //iv.displayCars();
                     DecimalFormat df = new DecimalFormat("#.00");
@@ -184,173 +251,16 @@ public class Menu
                         System.out.printf("%-10s", iv.cars[count].getColor());
                         System.out.println(iv.cars[count].isBrandNew());
                     }
-                }
+                }*/
 
-                else if(choice == 2)
-                {
-                    //iv.displayCars();
-                    DecimalFormat df = new DecimalFormat("#.00");
-                    System.out.printf("%-15s", "VIN");
-                    System.out.printf("%-10s", "Brand");
-                    System.out.printf("%-10s", "Model");
-                    System.out.printf("%-8s", "Year");
-                    System.out.printf("%-10s", "Mileage");
-                    System.out.printf("%-10s", "Price");
-                    System.out.printf("%-10s", "Color");
-                    System.out.println("New");
-
-                    for(int count = 0; count < iv.getNumOfCars(); count++)
-                    {
-                        System.out.printf("%-15s", iv.cars[count].getVin());
-                        System.out.printf("%-10s", iv.cars[count].getBrand());
-                        System.out.printf("%-10s", iv.cars[count].getModel());
-                        System.out.printf("%-8s", iv.cars[count].getYear());
-                        System.out.printf("%-10s", iv.cars[count].getMileage());
-                        System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
-                        System.out.printf("%-10s", iv.cars[count].getColor());
-                        System.out.println(iv.cars[count].isBrandNew());
-                    }
-                }
-
-                else if(choice == 3)
-                {
-                    //iv.displayCars();
-                    DecimalFormat df = new DecimalFormat("#.00");
-                    System.out.printf("%-15s", "VIN");
-                    System.out.printf("%-10s", "Brand");
-                    System.out.printf("%-10s", "Model");
-                    System.out.printf("%-8s", "Year");
-                    System.out.printf("%-10s", "Mileage");
-                    System.out.printf("%-10s", "Price");
-                    System.out.printf("%-10s", "Color");
-                    System.out.println("New");
-
-                    for(int count = 0; count < iv.getNumOfCars(); count++)
-                    {
-                        System.out.printf("%-15s", iv.cars[count].getVin());
-                        System.out.printf("%-10s", iv.cars[count].getBrand());
-                        System.out.printf("%-10s", iv.cars[count].getModel());
-                        System.out.printf("%-8s", iv.cars[count].getYear());
-                        System.out.printf("%-10s", iv.cars[count].getMileage());
-                        System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
-                        System.out.printf("%-10s", iv.cars[count].getColor());
-                        System.out.println(iv.cars[count].isBrandNew());
-                    }
-                }
-
-                else if(choice == 4)
-                {
-                    DecimalFormat df = new DecimalFormat("#.00");
-                    System.out.printf("%-15s", "VIN");
-                    System.out.printf("%-10s", "Brand");
-                    System.out.printf("%-10s", "Model");
-                    System.out.printf("%-8s", "Year");
-                    System.out.printf("%-10s", "Mileage");
-                    System.out.printf("%-10s", "Price");
-                    System.out.printf("%-10s", "Color");
-                    System.out.println("New");
-
-                    for(int count = 0; count < iv.getNumOfCars(); count++)
-                    {
-                        System.out.printf("%-15s", iv.cars[count].getVin());
-                        System.out.printf("%-10s", iv.cars[count].getBrand());
-                        System.out.printf("%-10s", iv.cars[count].getModel());
-                        System.out.println();
-                    }
-                        iv.sortYear();
-                    for(int count = 0; count < iv.getNumOfCars(); count++)
-                    {
-                        System.out.printf("%-10s", iv.cars[count].getMileage());
-                        System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
-                        System.out.printf("%-10s", iv.cars[count].getColor());
-                        System.out.println(iv.cars[count].isBrandNew());
-                    }
-
-                }
-
-                else if(choice == 5)
-                {
-                    //iv.displayCars();
-                    DecimalFormat df = new DecimalFormat("#.00");
-                    System.out.printf("%-15s", "VIN");
-                    System.out.printf("%-10s", "Brand");
-                    System.out.printf("%-10s", "Model");
-                    System.out.printf("%-8s", "Year");
-                    System.out.printf("%-10s", "Mileage");
-                    System.out.printf("%-10s", "Price");
-                    System.out.printf("%-10s", "Color");
-                    System.out.println("New");
-
-                    for(int count = 0; count < iv.getNumOfCars(); count++)
-                    {
-                        System.out.printf("%-15s", iv.cars[count].getVin());
-                        System.out.printf("%-10s", iv.cars[count].getBrand());
-                        System.out.printf("%-10s", iv.cars[count].getModel());
-                        System.out.printf("%-8s", iv.cars[count].getYear());
-                        System.out.printf("%-10s", iv.cars[count].getMileage());
-                        System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
-                        System.out.printf("%-10s", iv.cars[count].getColor());
-                        System.out.println(iv.cars[count].isBrandNew());
-                    }
-                }
-
-                else if(choice == 6)
-                {
-                    //iv.displayCars();
-                    DecimalFormat df = new DecimalFormat("#.00");
-                    System.out.printf("%-15s", "VIN");
-                    System.out.printf("%-10s", "Brand");
-                    System.out.printf("%-10s", "Model");
-                    System.out.printf("%-8s", "Year");
-                    System.out.printf("%-10s", "Mileage");
-                    System.out.printf("%-10s", "Price");
-                    System.out.printf("%-10s", "Color");
-                    System.out.println("New");
-
-                    for(int count = 0; count < iv.getNumOfCars(); count++)
-                    {
-                        System.out.printf("%-15s", iv.cars[count].getVin());
-                        System.out.printf("%-10s", iv.cars[count].getBrand());
-                        System.out.printf("%-10s", iv.cars[count].getModel());
-                        System.out.printf("%-8s", iv.cars[count].getYear());
-                        System.out.printf("%-10s", iv.cars[count].getMileage());
-                        System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
-                        System.out.printf("%-10s", iv.cars[count].getColor());
-                        System.out.println(iv.cars[count].isBrandNew());
-                    }
-                }
-
-                else if(choice == 7)
-                {
-                    //iv.displayCars();
-                    DecimalFormat df = new DecimalFormat("#.00");
-                    System.out.printf("%-15s", "VIN");
-                    System.out.printf("%-10s", "Brand");
-                    System.out.printf("%-10s", "Model");
-                    System.out.printf("%-8s", "Year");
-                    System.out.printf("%-10s", "Mileage");
-                    System.out.printf("%-10s", "Price");
-                    System.out.printf("%-10s", "Color");
-                    System.out.println("New");
-
-                    for(int count = 0; count < iv.getNumOfCars(); count++)
-                    {
-                        System.out.printf("%-15s", iv.cars[count].getVin());
-                        System.out.printf("%-10s", iv.cars[count].getBrand());
-                        System.out.printf("%-10s", iv.cars[count].getModel());
-                        System.out.printf("%-8s", iv.cars[count].getYear());
-                        System.out.printf("%-10s", iv.cars[count].getMileage());
-                        System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
-                        System.out.printf("%-10s", iv.cars[count].getColor());
-                        System.out.println(iv.cars[count].isBrandNew());
-                    }
-                }
+                else if (choice == 7)
+                    SortColor(iv);
 
                 else
                     System.out.println("Please choice from the menu above!!!");
             }
 
-            else if(choice == 3)
+            else if (choice == 3)
                 break;
 
             else
@@ -358,13 +268,13 @@ public class Menu
         }
     }
 
-    public void newOldMenu()
+    private void newOldMenu()
     {
         System.out.println("\n1. New");
         System.out.println("2. Used\n");
     }
 
-    public void sortCarInfoMenu()
+    private void sortCarInfoMenu()
     {
         System.out.println("1. Sort by VIN");
         System.out.println("2. Sort by Brand");
@@ -375,7 +285,7 @@ public class Menu
         System.out.println("7. Sort by Color");
     }
 
-    public void administrationMenu()
+    private void administrationMenu()
     {
         System.out.println("1. Display inventory");
         System.out.println("2. Add Car");
@@ -388,7 +298,7 @@ public class Menu
         System.out.println("9. Logout\n");
     }
 
-    public void administrationAction(Inventory iv, Customers cu) throws IOException
+    private void administrationAction(Inventory iv, Customers cu) throws IOException
     {
         String id;
         String passw;//password
@@ -396,20 +306,15 @@ public class Menu
         String ln;//last name
         String email;
 
-        String vin = "";
-        String brand = "";
-        String mod = ""; //model
-        int year = 0;
-        int mile = 0; //mileage
-        double price = 0.0;
-        char color = ' ';
-        char olnew = ' '; //old or new
-
-        String str[] = {vin, brand, mod};
-        int num[] = {year, mile};
-        double decimal[] = {price};
-        char letter[] = {color, olnew};
-        while(true)
+        String vin;
+        String brand;
+        String mod; //model
+        int year;
+        int mile; //mileage
+        double price;
+        char color;
+        char oldNew; //old or new
+        while (true)
         {
             administrationMenu();
             System.out.print("Please input your choice: ");
@@ -417,10 +322,10 @@ public class Menu
             cin.nextLine();
             System.out.println();
 
-            if(choice == 1)
+            if (choice == 1)
                 iv.displayCars();
 
-            else if(choice == 2)
+            else if (choice == 2)
             {
                 System.out.print("VIN: ");
                 vin = cin.nextLine();
@@ -437,7 +342,7 @@ public class Menu
                 System.out.print("Color: ");
                 color = cin.next().charAt(0);
                 System.out.print("New: ");
-                olnew = cin.next().charAt(0);
+                oldNew = cin.next().charAt(0);
 
                 DecimalFormat df = new DecimalFormat("#.00");
                 System.out.printf("%-15s", "VIN");
@@ -456,10 +361,13 @@ public class Menu
                 System.out.printf("%-10s", mile);
                 System.out.printf("%-10s", df.format(price));
                 System.out.printf("%-10s", color);
-                System.out.println(olnew);
+                System.out.println(oldNew);
                 System.out.println("\nSuccess, this car has been added.\n");
 
-
+                String str[] = {vin, brand, mod};
+                int num[] = {year, mile};
+                double decimal[] = {price};
+                char letter[] = {color, oldNew};
 
                 iv.cars[iv.getNumOfCars()] = new Car(str[0], str[1], str[2], num[0], num[1], decimal[0], letter[0], letter[1]);
                 iv.setNumOfCars(iv.getNumOfCars() + 1);
@@ -468,10 +376,7 @@ public class Menu
                 System.out.println();
             }
 
-            else if(choice == 3)
-                return;
-
-            else if(choice == 4)
+            else if (choice == 3)
             {
                 iv.displayCars();
                 System.out.println();
@@ -480,9 +385,54 @@ public class Menu
                 vin = cin.nextLine();
                 System.out.println();
 
-                for(int index = 0; index < iv.getNumOfCars(); index++)
+                for (int index = 0; index < iv.getNumOfCars(); index++)
                 {
-                    if(vin.equals(iv.cars[index].getVin()))
+                    if (vin.equals(iv.cars[index].getVin()))
+                    {
+                        DecimalFormat df = new DecimalFormat("#.00");
+                        System.out.printf("%-15s", "VIN");
+                        System.out.printf("%-10s", "Brand");
+                        System.out.printf("%-10s", "Model");
+                        System.out.printf("%-8s", "Year");
+                        System.out.printf("%-10s", "Mileage");
+                        System.out.printf("%-10s", "Price");
+                        System.out.printf("%-10s", "Color");
+                        System.out.println("New");
+
+                        System.out.printf("%-15s", iv.cars[index].getVin());
+                        System.out.printf("%-10s", iv.cars[index].getBrand());
+                        System.out.printf("%-10s", iv.cars[index].getModel());
+                        System.out.printf("%-8s", iv.cars[index].getYear());
+                        System.out.printf("%-10s", iv.cars[index].getMileage());
+                        System.out.printf("%-10s", df.format(iv.cars[index].getPrice()));
+                        System.out.printf("%-10s", iv.cars[index].getColor());
+                        System.out.println(iv.cars[index].getIsNew());
+                        System.out.println("\nSuccess, this car has been deleted.\n");
+
+                        Car i =  new Car(iv.cars[index].getVin(), iv.cars[index].getBrand(),
+                                iv.cars[index].getModel(), iv.cars[index].getYear(),
+                                iv.cars[index].getMileage(), iv.cars[index].getPrice(), iv.cars[index].getColor(), iv.cars[index].getIsNew());
+
+                        iv.setNumOfCars(iv.getNumOfCars());
+                    }
+                }
+
+                iv.displayCars();
+                System.out.println();
+            }
+
+            else if (choice == 4)
+            {
+                iv.displayCars();
+                System.out.println();
+
+                System.out.print("Please input VIN: ");
+                vin = cin.nextLine();
+                System.out.println();
+
+                for (int index = 0; index < iv.getNumOfCars(); index++)
+                {
+                    if (vin.equals(iv.cars[index].getVin()))
                     {
                         updateCar();
                         System.out.println();
@@ -492,18 +442,18 @@ public class Menu
                         cin.nextLine();
                         System.out.println();
 
-                        if(choice == 1)
+                        if (choice == 1)
                         {
                             System.out.print("Please input brand: ");
                             brand = cin.nextLine();
                             iv.cars[index].setBrand(brand);
                             System.out.println("\nIt's updated. Thank you.\n");
                             iv.displayCars();
-                            iv.cars[index] = new Car(str[0], str[1], str[2], num[0], num[1], decimal[0], letter[0], letter[1]);
-                            iv.setNumOfCars(iv.getNumOfCars());
+                            //iv.cars[index] = new Car(str[0], str[1], str[2], num[0], num[1], decimal[0], letter[0], letter[1]);
+                            //iv.setNumOfCars(iv.getNumOfCars());
                         }
 
-                        else if(choice == 2)
+                        else if (choice == 2)
                         {
                             System.out.print("Please input model: ");
                             mod = cin.nextLine();
@@ -512,7 +462,7 @@ public class Menu
                             iv.displayCars();
                         }
 
-                        else if(choice == 3)
+                        else if (choice == 3)
                         {
                             System.out.print("Please input year: ");
                             year = cin.nextInt();
@@ -521,7 +471,7 @@ public class Menu
                             iv.displayCars();
                         }
 
-                        else if(choice == 4)
+                        else if (choice == 4)
                         {
                             System.out.print("Please input mileage: ");
                             mile = cin.nextInt();
@@ -530,7 +480,7 @@ public class Menu
                             iv.displayCars();
                         }
 
-                        else if(choice == 5)
+                        else if (choice == 5)
                         {
                             System.out.print("Please input price: ");
                             price = cin.nextDouble();
@@ -539,7 +489,7 @@ public class Menu
                             iv.displayCars();
                         }
 
-                        else if(choice == 6)
+                        else if (choice == 6)
                         {
                             System.out.print("Please input color: ");
                             color = cin.next().charAt(0);
@@ -554,16 +504,13 @@ public class Menu
                 }
             }
 
-            else if(choice == 5)
+            else if (choice == 5)
                 cu.displayCustomers();
 
-            else if(choice == 6)
+            else if (choice == 6)
                 signUp(cu);
 
-            else if(choice == 7)
-                return;
-
-            else if(choice == 8)
+            else if (choice == 7)
             {
                 cu.displayCustomers();
                 System.out.println();
@@ -572,9 +519,41 @@ public class Menu
                 id = cin.nextLine();
                 System.out.println();
 
-                for(int count = 0; count < cu.getNumOfMembers(); count++)
+                for(int index = 0; index < cu.getNumOfMembers(); index++)
                 {
-                    if(id.equals(cu.members[count].getID()))
+                    if(id.equals(cu.members[index].getID()))
+                    {
+                        System.out.printf("%-10s" ,"Id");
+                        System.out.printf("%-13s", "Password");
+                        System.out.printf("%-15s", "FirstName");
+                        System.out.printf("%-14s", "LastName");
+                        System.out.println("Email");
+
+                        System.out.printf("%-10s" , cu.members[index].getID());
+                        System.out.printf("%-13s" , cu.members[index].getPW());
+                        System.out.printf("%-15s" , cu.members[index].getFirstName());
+                        System.out.printf("%-14s" , cu.members[index].getLastName());
+                        System.out.println(cu.members[index].getEmail());
+                        System.out.println("\n" + cu.members[index].getID() +  " has been deleted.\n");
+                    }
+                }
+
+                cu.displayCustomers();
+                System.out.println();
+            }
+
+            else if (choice == 8)
+            {
+                cu.displayCustomers();
+                System.out.println();
+
+                System.out.print("Please input ID: ");
+                id = cin.nextLine();
+                System.out.println();
+
+                for (int count = 0; count < cu.getNumOfMembers(); count++)
+                {
+                    if (id.equals(cu.members[count].getID()))
                     {
                         updateCustomer();
                         System.out.println();
@@ -583,16 +562,15 @@ public class Menu
                         choice = cin.nextInt();
                         System.out.println();
 
-                        if(choice == 1)
+                        if (choice == 1)
                         {
                             System.out.print("Please input new password: ");
                             passw = cin.nextLine();
                             cu.members[count].setPW(passw);
                             cu.displayCustomers();
-
                         }
 
-                        else if(choice == 2)
+                        else if (choice == 2)
                         {
                             System.out.print("Please input new first name: ");
                             fn = cin.nextLine();
@@ -600,7 +578,7 @@ public class Menu
                             cu.displayCustomers();
                         }
 
-                        else if(choice == 3)
+                        else if (choice == 3)
                         {
                             System.out.print("Please input new last name: ");
                             ln = cin.nextLine();
@@ -608,7 +586,7 @@ public class Menu
                             cu.displayCustomers();
                         }
 
-                        else if(choice == 4)
+                        else if (choice == 4)
                         {
                             System.out.print("Please input new email: ");
                             email = cin.nextLine();
@@ -620,10 +598,9 @@ public class Menu
                     else
                         System.out.println("Sorry no Id found in our database.\n");
                 }
-
             }
 
-            else if(choice == 9)
+            else if (choice == 9)
                 break;
 
             else
@@ -631,7 +608,7 @@ public class Menu
         }
     }
 
-    public void updateCar()
+    private void updateCar()
     {
         System.out.println("1. Update Brand");
         System.out.println("2. Update Model");
@@ -641,11 +618,284 @@ public class Menu
         System.out.println("6. Update Color");
     }
 
-    public void updateCustomer()
+    private void updateCustomer()
     {
         System.out.println("1. Update Password");
         System.out.println("2. Update First Name");
         System.out.println("3. Update Last Name");
         System.out.println("4. Update Email");
+    }
+
+
+    public void SortVIN(Inventory iv)
+    {
+        for (int i = 0; i < iv.getNumOfCars() - 1; i++)
+        {
+            int index = i;
+            for (int j = i + 1; j < iv.getNumOfCars(); j++)
+                if (iv.cars[j].getVin().compareTo(iv.cars[index].getVin()) < 0)//the compare is, if == integer is 0,
+                    index = j;                                          //if < integer is -, if > integer is +
+
+            Car smallerNumber = iv.cars[index];
+            iv.cars[index] = iv.cars[i];
+            iv.cars[i] = smallerNumber;
+        }
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        System.out.printf("%-15s", "VIN");
+        System.out.printf("%-10s", "Brand");
+        System.out.printf("%-10s", "Model");
+        System.out.printf("%-8s", "Year");
+        System.out.printf("%-10s", "Mileage");
+        System.out.printf("%-10s", "Price");
+        System.out.printf("%-10s", "Color");
+        System.out.println("New");
+
+        for (int count = 0; count < iv.getNumOfCars(); count++)
+        {
+            System.out.printf("%-15s", iv.cars[count].getVin());
+            System.out.printf("%-10s", iv.cars[count].getBrand());
+            System.out.printf("%-10s", iv.cars[count].getModel());
+            System.out.printf("%-8s", iv.cars[count].getYear());
+            System.out.printf("%-10s", iv.cars[count].getMileage());
+            System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
+            System.out.printf("%-10s", iv.cars[count].getColor());
+            System.out.println(iv.cars[count].getIsNew());
+        }
+
+        System.out.println();
+    }
+
+    public void SortBrand(Inventory iv)
+    {
+        for (int i = 0; i < iv.getNumOfCars() - 1; i++)
+        {
+            int index = i;
+            for (int j = i + 1; j < iv.getNumOfCars(); j++)
+                if (iv.cars[j].getBrand().compareTo(iv.cars[index].getBrand()) < 0)
+                    index = j;
+
+            Car smallerNumber = iv.cars[index];
+            iv.cars[index] = iv.cars[i];
+            iv.cars[i] = smallerNumber;
+        }
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        System.out.printf("%-15s", "VIN");
+        System.out.printf("%-10s", "Brand");
+        System.out.printf("%-10s", "Model");
+        System.out.printf("%-8s", "Year");
+        System.out.printf("%-10s", "Mileage");
+        System.out.printf("%-10s", "Price");
+        System.out.printf("%-10s", "Color");
+        System.out.println("New");
+
+        for (int count = 0; count < iv.getNumOfCars(); count++)
+        {
+            System.out.printf("%-15s", iv.cars[count].getVin());
+            System.out.printf("%-10s", iv.cars[count].getBrand());
+            System.out.printf("%-10s", iv.cars[count].getModel());
+            System.out.printf("%-8s", iv.cars[count].getYear());
+            System.out.printf("%-10s", iv.cars[count].getMileage());
+            System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
+            System.out.printf("%-10s", iv.cars[count].getColor());
+            System.out.println(iv.cars[count].getIsNew());
+        }
+
+        System.out.println();
+    }
+
+    public void SortModel(Inventory iv)
+    {
+        for (int i = 0; i < iv.getNumOfCars() - 1; i++)
+        {
+            int index = i;
+            for (int j = i + 1; j < iv.getNumOfCars(); j++)
+                if (iv.cars[j].getBrand().compareTo(iv.cars[index].getBrand()) < 0)
+                    index = j;
+
+            Car smallerNumber = iv.cars[index];
+            iv.cars[index] = iv.cars[i];
+            iv.cars[i] = smallerNumber;
+        }
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        System.out.printf("%-15s", "VIN");
+        System.out.printf("%-10s", "Brand");
+        System.out.printf("%-10s", "Model");
+        System.out.printf("%-8s", "Year");
+        System.out.printf("%-10s", "Mileage");
+        System.out.printf("%-10s", "Price");
+        System.out.printf("%-10s", "Color");
+        System.out.println("New");
+
+        for (int count = 0; count < iv.getNumOfCars(); count++)
+        {
+            System.out.printf("%-15s", iv.cars[count].getVin());
+            System.out.printf("%-10s", iv.cars[count].getBrand());
+            System.out.printf("%-10s", iv.cars[count].getModel());
+            System.out.printf("%-8s", iv.cars[count].getYear());
+            System.out.printf("%-10s", iv.cars[count].getMileage());
+            System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
+            System.out.printf("%-10s", iv.cars[count].getColor());
+            System.out.println(iv.cars[count].getIsNew());
+        }
+
+        System.out.println();
+    }
+
+    public void SortYear(Inventory iv)
+    {
+        for (int i = 0; i < iv.getNumOfCars() - 1; i++)
+        {
+            int index = i;
+            for (int j = i + 1; j < iv.getNumOfCars(); j++)
+                if (iv.cars[j].getYear() < iv.cars[index].getYear())
+                    index = j;
+
+            Car smallerNumber = iv.cars[index];
+            iv.cars[index] = iv.cars[i];
+            iv.cars[i] = smallerNumber;
+        }
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        System.out.printf("%-15s", "VIN");
+        System.out.printf("%-10s", "Brand");
+        System.out.printf("%-10s", "Model");
+        System.out.printf("%-8s", "Year");
+        System.out.printf("%-10s", "Mileage");
+        System.out.printf("%-10s", "Price");
+        System.out.printf("%-10s", "Color");
+        System.out.println("New");
+
+        for (int count = 0; count < iv.getNumOfCars(); count++)
+        {
+            System.out.printf("%-15s", iv.cars[count].getVin());
+            System.out.printf("%-10s", iv.cars[count].getBrand());
+            System.out.printf("%-10s", iv.cars[count].getModel());
+            System.out.printf("%-8s", iv.cars[count].getYear());
+            System.out.printf("%-10s", iv.cars[count].getMileage());
+            System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
+            System.out.printf("%-10s", iv.cars[count].getColor());
+            System.out.println(iv.cars[count].getIsNew());
+        }
+
+        System.out.println();
+    }
+
+    public void SortMileage(Inventory iv)
+    {
+        for (int i = 0; i < iv.getNumOfCars() - 1; i++) {
+            int index = i;
+            for (int j = i + 1; j < iv.getNumOfCars(); j++)
+                if (iv.cars[j].getMileage() <= iv.cars[index].getMileage())
+                    index = j;
+
+            Car smallerNumber = iv.cars[index];
+            iv.cars[index] = iv.cars[i];
+            iv.cars[i] = smallerNumber;
+        }
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        System.out.printf("%-15s", "VIN");
+        System.out.printf("%-10s", "Brand");
+        System.out.printf("%-10s", "Model");
+        System.out.printf("%-8s", "Year");
+        System.out.printf("%-10s", "Mileage");
+        System.out.printf("%-10s", "Price");
+        System.out.printf("%-10s", "Color");
+        System.out.println("New");
+
+        for (int count = 0; count < iv.getNumOfCars(); count++)
+        {
+            System.out.printf("%-15s", iv.cars[count].getVin());
+            System.out.printf("%-10s", iv.cars[count].getBrand());
+            System.out.printf("%-10s", iv.cars[count].getModel());
+            System.out.printf("%-8s", iv.cars[count].getYear());
+            System.out.printf("%-10s", iv.cars[count].getMileage());
+            System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
+            System.out.printf("%-10s", iv.cars[count].getColor());
+            System.out.println(iv.cars[count].getIsNew());
+        }
+
+        System.out.println();
+    }
+
+    public void SortPrice(Inventory iv)
+    {
+        for (int i = 0; i < iv.getNumOfCars() - 1; i++)
+        {
+            int index = i;
+            for (int j = i + 1; j < iv.getNumOfCars(); j++)
+                if (iv.cars[j].getPrice() < iv.cars[index].getPrice())
+                    index = j;
+
+            Car smallerNumber = iv.cars[index];
+            iv.cars[index] = iv.cars[i];
+            iv.cars[i] = smallerNumber;
+        }
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        System.out.printf("%-15s", "VIN");
+        System.out.printf("%-10s", "Brand");
+        System.out.printf("%-10s", "Model");
+        System.out.printf("%-8s", "Year");
+        System.out.printf("%-10s", "Mileage");
+        System.out.printf("%-10s", "Price");
+        System.out.printf("%-10s", "Color");
+        System.out.println("New");
+
+        for (int count = 0; count < iv.getNumOfCars(); count++)
+        {
+            System.out.printf("%-15s", iv.cars[count].getVin());
+            System.out.printf("%-10s", iv.cars[count].getBrand());
+            System.out.printf("%-10s", iv.cars[count].getModel());
+            System.out.printf("%-8s", iv.cars[count].getYear());
+            System.out.printf("%-10s", iv.cars[count].getMileage());
+            System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
+            System.out.printf("%-10s", iv.cars[count].getColor());
+            System.out.println(iv.cars[count].getIsNew());
+        }
+
+        System.out.println();
+    }
+
+    public void SortColor(Inventory iv)
+    {
+        for (int i = 0; i < iv.getNumOfCars() - 1; i++)
+        {
+            int index = i;
+            for (int j = i + 1; j < iv.getNumOfCars(); j++)
+                if (iv.cars[j].getColor() < iv.cars[index].getColor())
+                    index = j;
+
+            Car smallerNumber = iv.cars[index];
+            iv.cars[index] = iv.cars[i];
+            iv.cars[i] = smallerNumber;
+        }
+
+        DecimalFormat df = new DecimalFormat("#.00");
+        System.out.printf("%-15s", "VIN");
+        System.out.printf("%-10s", "Brand");
+        System.out.printf("%-10s", "Model");
+        System.out.printf("%-8s", "Year");
+        System.out.printf("%-10s", "Mileage");
+        System.out.printf("%-10s", "Price");
+        System.out.printf("%-10s", "Color");
+        System.out.println("New");
+
+        for (int count = 0; count < iv.getNumOfCars(); count++)
+        {
+            System.out.printf("%-15s", iv.cars[count].getVin());
+            System.out.printf("%-10s", iv.cars[count].getBrand());
+            System.out.printf("%-10s", iv.cars[count].getModel());
+            System.out.printf("%-8s", iv.cars[count].getYear());
+            System.out.printf("%-10s", iv.cars[count].getMileage());
+            System.out.printf("%-10s", df.format(iv.cars[count].getPrice()));
+            System.out.printf("%-10s", iv.cars[count].getColor());
+            System.out.println(iv.cars[count].getIsNew());
+        }
+
+        System.out.println();
     }
 }

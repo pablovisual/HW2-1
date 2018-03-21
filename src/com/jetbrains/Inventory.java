@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 public class Inventory
 {
-    int numOfCars;
+    private int numOfCars;
     Car cars[];
 
     public Inventory(String fileName) throws IOException
@@ -51,12 +51,7 @@ public class Inventory
             System.out.printf("%-10s", cars[count].getMileage());
             System.out.printf("%-10s", df.format(cars[count].getPrice()));
             System.out.printf("%-10s", cars[count].getColor());
-            //System.out.println(cars[count].isBrandNew());
-            if(cars[count].isBrandNew())
-                System.out.println('Y');
-
-            else
-                System.out.println('N');
+            System.out.println(cars[count].getIsNew());
         }
     }
 
@@ -75,39 +70,43 @@ public class Inventory
             PW.print(cars[index].getMileage() + "/");
             PW.print(cars[index].getPrice() + "/");
             PW.print(cars[index].getColor() + "/");
-            PW.println(cars[index].isBrandNew());
+            PW.println(cars[index].getIsNew());
         }
         PW.close();
     }
 
-    public int[] selSort(int arr[])
-    {
-        for (int i = 0; i < arr.length - 1; i++)
-        {
-            int index = i;
-            for (int j = i + 1; j < arr.length; j++)
-                if (arr[j] < arr[index])
-                    index = j;
 
-            int smallerNumber = arr[index];
-            arr[index] = arr[i];
-            arr[i] = smallerNumber;
+
+
+    /*public void sortYear()
+    {// Car [] tempArr = Inventory.tempArray(car_count here)
+        //Car arr1[] = Inventory.arr(numOfCars);
+        for(int i = 0; i < numOfCars; i++)
+        {
+            //arr1[i] = new Car();
+           // arr1[i].setVin();
+        }
+        /*int arr[] = new int[numOfCars];
+        for(int index = 0; index < arr.length; index++)
+        {
+            //arr[index] = new Car();
+            arr[index] = cars[index].getYear();
         }
 
-        return arr;
-    }
-
-    public void sortYear()
-    {
-        int arr[] = new int[getNumOfCars()];
-        for(int index = 0; index < arr.length; index++)
-            arr[index] = cars[index].getYear();
-
         arr = selSort(arr);
-
-        for(int i = 0; i < arr.length; i++)
-            System.out.printf("%-8s", arr[i]);
+        //for(int i = 0; i < getNumOfCars(); i++)
+          //  System.out.println(arr[i]);
     }
+
+    /*public static Car[] arr(int size)
+    {
+        Car temporary[] = new Car[size];
+
+        for(int count = 0; count < size; count++)
+            temporary[count] = new Car();
+
+        return temporary;
+    }*/
 
     public void setNumOfCars(int num) { numOfCars = num; }
     public int getNumOfCars() {return this.numOfCars; }
