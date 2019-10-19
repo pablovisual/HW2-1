@@ -53,7 +53,6 @@ public class Customers
         PrintWriter PW = new PrintWriter(FW);
 
         //write users to file.
-        //System.out.println(numOfMembers); to check how many lines there are
         for(int index = numOfMembers - 1; index < numOfMembers; index++)//index is set to numOfMembers - 1 in order to add the new line of string
         {
             PW.print("\n" + members[index].getID() + "/");
