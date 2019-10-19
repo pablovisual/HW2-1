@@ -75,39 +75,6 @@ public class Inventory
         PW.close();
     }
 
-
-
-
-    /*public void sortYear()
-    {// Car [] tempArr = Inventory.tempArray(car_count here)
-        //Car arr1[] = Inventory.arr(numOfCars);
-        for(int i = 0; i < numOfCars; i++)
-        {
-            //arr1[i] = new Car();
-           // arr1[i].setVin();
-        }
-        /*int arr[] = new int[numOfCars];
-        for(int index = 0; index < arr.length; index++)
-        {
-            //arr[index] = new Car();
-            arr[index] = cars[index].getYear();
-        }
-
-        arr = selSort(arr);
-        //for(int i = 0; i < getNumOfCars(); i++)
-          //  System.out.println(arr[i]);
-    }
-
-    /*public static Car[] arr(int size)
-    {
-        Car temporary[] = new Car[size];
-
-        for(int count = 0; count < size; count++)
-            temporary[count] = new Car();
-
-        return temporary;
-    }*/
-
     public void setNumOfCars(int num) { numOfCars = num; }
     public int getNumOfCars() {return this.numOfCars; }
 }
